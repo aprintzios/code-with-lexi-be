@@ -25,7 +25,6 @@ router.post('/signup', async function(req, res, next){
     }
     //create jwt + send to fe
     const token = jwt.sign({user}, process.env.SECRET,{expiresIn: '24h'});
-    console.log("after token");
     res.status(200).json(token);
 
   }catch(err){
