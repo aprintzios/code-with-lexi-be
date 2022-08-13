@@ -2,10 +2,10 @@ const mongoose = require("mongoose")
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  firstName:  String, // String is shorthand for {type: String}
-  lastName: String,
-  emailAddress: String,
-  password: String
+  name:  String, 
+  email: String,
+  password: String,
+  isAdmin: Boolean
   }, {
     timestamp: true,
 });
