@@ -84,9 +84,16 @@ router.post('/create', async function (req, res, next) {
 
 router.put('/update', async function(req, res, next){
     try{
-        const session = await Session.findById(req.body.sessionId)
-        session.user = req.user._id
+        let bookedSession = JSON.parse(req.body.session)
+        let bookedSessionDate = new Date(bookedSession[0]).toISOString()
+        let session = await Session.findOne({date: bookedSessionDate, time: bookedSession[1]})
+        console.log("found my session", session);
+        session.user = req.user._id;
         session.save()
+        // const session = await Session.find()
+        // // const session = await Session.findById(req.body.sessionId)
+        // session.user = req.user._id
+        // session.save()
         res.status(200).send("Done")
     }catch(err){
         res.status(400).json(err);
