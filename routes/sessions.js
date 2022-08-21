@@ -60,19 +60,29 @@ router.get('/booked', async function(req, res, next){
 
 router.post('/create', async function (req, res, next) {
     try {
-        let newSessions = req.body;
-        let startDate = new Date(newSessions.startDate);
-        let endDate = new Date(newSessions.endDate);
-        let startTime = parseInt(newSessions.startTime.substring(0, 2));
-        let endTime = parseInt(newSessions.endTime.substring(0, 2));
-        let dates = getDates(startDate, endDate);
-        let times = getTimes(startTime, endTime);
-        let readableTimes = times.map(time => toReadableTime(time))
+        const [dates, times] = JSON.parse(req.body.sessions)
+        console.log(dates, times)
         dates.forEach(date => {
-            readableTimes.forEach(time => {
-                Session.create({ date: date, time: time })
+            times.forEach(async time => {
+                const session = await Session.find({date: new Date(date), time: time})
+                if (!session.length) {
+                    await Session.create({ date: date, time: time })
+                }
             })
         })
+        // let newSessions = req.body;
+        // let startDate = new Date(newSessions.startDate);
+        // let endDate = new Date(newSessions.endDate);
+        // let startTime = parseInt(newSessions.startTime.substring(0, 2));
+        // let endTime = parseInt(newSessions.endTime.substring(0, 2));
+        // let dates = getDates(startDate, endDate);
+        // let times = getTimes(startTime, endTime);
+        // let readableTimes = times.map(time => toReadableTime(time))
+        // dates.forEach(date => {
+        //     readableTimes.forEach(time => {
+        //         Session.create({ date: date, time: time })
+        //     })
+        // })
         res.status(200).send("Done");
     }
     catch (err) {
