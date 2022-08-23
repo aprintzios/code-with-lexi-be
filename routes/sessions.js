@@ -64,9 +64,12 @@ router.post('/create', async function (req, res, next) {
         console.log(dates, times)
         dates.forEach(date => {
             times.forEach(async time => {
-                const session = await Session.find({date: new Date(date), time: time})
+                date = new Date(date)
+                date.setUTCHours(0,0,0,0);
+                console.log("time", time);
+                const session = await Session.find({date: date, time: time})
                 if (!session.length) {
-                    await Session.create({ date: date, time: time })
+                    await Session.create({ date: new Date(date), time: time })
                 }
             })
         })
@@ -95,7 +98,9 @@ router.post('/create', async function (req, res, next) {
 router.put('/update', async function(req, res, next){
     try{
         let bookedSession = JSON.parse(req.body.session)
-        let bookedSessionDate = new Date(bookedSession[0]).toISOString()
+        let bookedSessionDate = new Date(bookedSession[0])
+        bookedSessionDate.setUTCHours(0,0,0,0);
+        console.log("booked ses date", bookedSessionDate)
         let session = await Session.findOne({date: bookedSessionDate, time: bookedSession[1]})
         console.log("found my session", session);
         session.user = req.user._id;
