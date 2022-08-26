@@ -21,7 +21,8 @@ router.get('/available', async function(req, res, next){
 router.get('/booked', async function(req, res, next){
     try{
         //retrieve all sessions from db
-        let sessions = await Session.find( { user: { $ne: null } } );
+        let sessions = await Session.find( { user: { $ne: null } } ).populate('user');
+        console.log(sessions)
         res.status(200).json(sessions);
     } catch(err){
         res.status(400).json(err);
