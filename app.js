@@ -4,11 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require("cors");
-const nodemailer = require("nodemailer");
+const favicon = require('serve-favicon');
 
 require('dotenv').config()
 require('./config/database.js')
-
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,6 +21,8 @@ app.set('view engine', 'ejs');
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
+app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
+app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,6 +32,9 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/sessions', sessionsRouter);
 
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -46,22 +50,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: "",
-    pass: "",
-  },
-});
-
-contactEmail.verify((error) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Ready to Send");
-  }
 });
 
 module.exports = app;
