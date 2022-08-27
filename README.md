@@ -14,7 +14,9 @@ App Title: Code with Lexi: A tutoring website with integrated booking and paymen
 </ul>
 
 ☐ Getting Started: <br>
-Deployed App: https://codewithlexi.herokuapp.com/ <br>
+<ul>
+<li> Deployed App: https://codewithlexi.herokuapp.com/ </li>
+</ul>
 
 ☐ Next Steps: <br>
 <ul>
