@@ -11,6 +11,7 @@ App Title: Code with Lexi: A tutoring website with integrated booking and paymen
 <li>MERN</li>
 <li>Paypal REST API</li>
 <li>react-calendar npm</li>
+<li>email.js</li>
 </ul>
 
 ☐ Getting Started: <br>
