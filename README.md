@@ -13,8 +13,10 @@ App Title: Code with Lexi: A tutoring website with integrated booking and paymen
 <li>react-calendar npm</li>
 </ul>
 
-☐ Getting Started: That Includes:
+☐ Getting Started: <br>
+Deployed App: https://codewithlexi.herokuapp.com/ <br>
 
-A link to the deployed app (Heroku)
-A link to the Trello board used for the project's planning that includes user stories, wireframes & an ERD.
-☐ Next Steps: Planned future enhancements (icebox items).
+☐ Next Steps: <br>
+<ul>
+<li> user dashboard where they can manage/delete/reschedule booked sessions </li>
+</ul>
